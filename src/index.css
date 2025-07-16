@@ -1,0 +1,44 @@
+/* Estilo base para toda la app */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elimina márgenes del body y asegura altura completa */
+body, html {
+  height: 100%;
+  width: 100%;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fdecef;
+}
+
+/* Root ocupa toda la pantalla y permite diseño flexible */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Para imágenes responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ajustes visuales generales */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Evita barras laterales inesperadas */
+body {
+  overflow-x: hidden;
+}
+
+/* Botones personalizados si deseas */
+button {
+  cursor: pointer;
+}

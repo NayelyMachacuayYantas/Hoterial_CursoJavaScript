@@ -1,0 +1,28 @@
+.fondo-login {
+  background-image: url("/img/fondo.jpg"); /* Cambia a la ruta real */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 90vh;
+  padding: 2rem;
+}
+
+.fondo-login .contenedor-formulario {
+  background-color: rgba(255, 255, 255, 0.695);
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+}
+
+.btn-login {
+  background: linear-gradient(45deg, #b68d4c, #9c7b3d);
+  border: none;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.btn-login:hover {
+  transform: scale(1.03);
+  background: linear-gradient(45deg, #9c7b3d, #b68d4c);
+}

@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Raleway:wght@400;600&display=swap');
+@font-face {
+  font-family: 'moela';
+  src: url('../assets/fonts/MOELA-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --primary-color: #d4af37;
+  --primary-dark: #b8952f;
+  --text-color: #444;
+  --background-claro: #fffaf4;
+  --background-suave: #fdf6ec;
+  --header-overlay: rgba(0, 0, 0, 0.45);
+  --accent-color: #b68d4c;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  color: var(--text-color);
+}
+
+.home-elegante {
+  background-color: #fffefc;
+}
+
+/* Hero */
+.hero-header {
+  background-image: url('/img/fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 85vh;
+  position: relative;
+}
+
+.overlay {
+  background-color: var(--header-overlay);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  color: #fff;
+  max-width: 720px;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Botón */
+.btn-reserva {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 2.2rem;
+  border-radius: 25px;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-reserva:hover {
+  background-color: var(--primary-dark);
+  color: rgb(255, 255, 255);
+  transform: translateY(-2px);
+}
+
+/* Secciones */
+.seccion {
+  padding: 4rem 1.5rem;
+}
+
+.clara {
+  background-color: var(--background-claro);
+}
+
+.suave {
+  background-color: var(--background-suave);
+}
+
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--accent-color);
+  margin-bottom: 1.2rem;
+}
+
+/* Texto general */
+.texto {
+  color: #666;
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+/* Galería */
+.galeria {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.tarjeta-flip {
+  perspective: 1000px;
+  width: 260px;
+  height: 280px;
+}
+
+.contenido-flip {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+  border-radius: 16px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-flip:hover .contenido-flip {
+  transform: rotateY(180deg);
+}
+
+.frontal, .trasera {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.frontal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trasera {
+  background: #fdf6ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+  padding: 1rem;
+  font-family: 'Playfair Display', serif;
+  color: #5a4634;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-img {
+  max-width: 260px;
+  text-align: center;
+}
+
+.card-img img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card-img p {
+  font-weight: 500;
+  color: var(--accent-color);
+}
+
+/* Misión y visión */
+.tarjeta-vision {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  height: 100%;
+}
+
+.tarjeta-vision h4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Imagen historia */
+.img-historia {
+  border-radius: 18px;
+  margin-top: 2rem;
+  max-height: 320px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Contacto */
+.contacto {
+  background-color: #fff3e0;
+  padding: 3.5rem 1rem;
+}
+
+/* Redes */
+.redes-sociales a {
+  font-size: 1.6rem;
+  margin: 0 1rem;
+  transition: color 0.3s ease;
+}
+
+.redes-sociales a:hover {
+  color: var(--accent-color);
+}
+
+/* Footer */
+.footer-elegante {
+  background-color: #2f2f2f;
+  color: #fff7e6;
+  padding: 1.2rem;
+  font-size: 0.9rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.historia-section {
+  background-color: #fffaf4;
+}
+
+.img-historia {
+  border-radius: 20px;
+  max-width: 80%;
+  max-height: 300px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.img-historia:hover {
+  transform: scale(1.02);
+}
+
+.sombra-historia {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}

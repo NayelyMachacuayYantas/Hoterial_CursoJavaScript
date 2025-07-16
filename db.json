@@ -1,0 +1,373 @@
+{
+  "habitaciones": [
+    {
+      "id": "1",
+      "numero": "101",
+      "tipo": "Simple",
+      "precio": 80,
+      "estado": "Disponible",
+      "capacidad": 1,
+      "imagen": "/img/habitacion-simple.jpg"
+    },
+    {
+      "id": "2",
+      "numero": "102",
+      "tipo": "Doble",
+      "precio": 120,
+      "estado": "Ocupada",
+      "capacidad": 2,
+      "imagen": "/img/habitacion-doble1.jpg"
+    },
+    {
+      "id": "3",
+      "numero": "103",
+      "tipo": "Matrimonial",
+      "precio": 150,
+      "estado": "Disponible",
+      "capacidad": 2,
+      "imagen": "/img/habitacion-matrimonial.jpg"
+    },
+    {
+      "id": "4",
+      "numero": "104",
+      "tipo": "Suite",
+      "precio": 250,
+      "estado": "Mantenimiento",
+      "capacidad": 3,
+      "imagen": "/img/habitacion-suit1.jpg"
+    },
+    {
+      "id": "5",
+      "numero": "105",
+      "tipo": "Triple",
+      "precio": 180,
+      "estado": "Disponible",
+      "capacidad": 3,
+      "imagen": "/img/habitacion-triple1.jpg"
+    },
+    {
+      "id": "6",
+      "numero": "106",
+      "tipo": "Simple",
+      "precio": 75,
+      "estado": "Disponible",
+      "capacidad": 1,
+      "imagen": "/img/habitacion-simple2.jpg"
+    },
+    {
+      "id": "7",
+      "numero": "107",
+      "tipo": "Doble",
+      "precio": 130,
+      "estado": "Ocupada",
+      "capacidad": 2,
+      "imagen": "/img/habitacion-doble.jpg"
+    },
+    {
+      "id": "8",
+      "numero": "108",
+      "tipo": "Matrimonial",
+      "precio": 160,
+      "estado": "Disponible",
+      "capacidad": 2,
+      "imagen": "/img/habitacion-matrimonial.jpg"
+    },
+    {
+      "id": "9",
+      "numero": "109",
+      "tipo": "Suite",
+      "precio": 280,
+      "estado": "Disponible",
+      "capacidad": 4,
+      "imagen": "/img/habitacion-suit2.jpg"
+    },
+    {
+      "id": "10",
+      "numero": "110",
+      "tipo": "Triple",
+      "precio": 190,
+      "estado": "Mantenimiento",
+      "capacidad": 3,
+      "imagen": "/img/habitacion-triple2.jpg"
+    }
+  ],
+  "reservas": [
+    {
+      "id": "3",
+      "usuarioId": 3,
+      "habitacionId": 4,
+      "fechaIngreso": "2025-07-10",
+      "fechaSalida": "2025-07-15",
+      "estado": "Cancelada"
+    },
+    {
+      "id": "4",
+      "usuarioId": 4,
+      "habitacionId": 5,
+      "fechaIngreso": "2025-07-11",
+      "fechaSalida": "2025-07-14",
+      "estado": "Confirmada"
+    },
+    {
+      "id": "5",
+      "usuarioId": 5,
+      "habitacionId": 2,
+      "fechaIngreso": "2025-07-12",
+      "fechaSalida": "2025-07-15",
+      "estado": "Confirmada"
+    },
+    {
+      "id": "6",
+      "usuarioId": 6,
+      "habitacionId": 6,
+      "fechaIngreso": "2025-07-20",
+      "fechaSalida": "2025-07-22",
+      "estado": "Pendiente"
+    },
+    {
+      "id": "7",
+      "usuarioId": 7,
+      "habitacionId": 3,
+      "fechaIngreso": "2025-07-21",
+      "fechaSalida": "2025-07-23",
+      "estado": "Confirmada"
+    },
+    {
+      "id": "8",
+      "usuarioId": 8,
+      "habitacionId": 2,
+      "fechaIngreso": "2025-07-25",
+      "fechaSalida": "2025-07-30",
+      "estado": "Confirmada"
+    },
+    {
+      "id": "9",
+      "usuarioId": 3,
+      "habitacionId": 5,
+      "fechaIngreso": "2025-07-28",
+      "fechaSalida": "2025-08-01",
+      "estado": "Pendiente"
+    },
+    {
+      "id": "10",
+      "usuarioId": 10,
+      "habitacionId": 6,
+      "fechaIngreso": "2025-08-01",
+      "fechaSalida": "2025-08-05",
+      "estado": "Confirmada"
+    },
+    {
+      "id": "2",
+      "habitacionId": 1,
+      "fechaIngreso": "2025-07-24",
+      "fechaSalida": "2025-07-25",
+      "estado": "Pendiente",
+      "usuarioId": 1
+    },
+    {
+      "id": "3",
+      "habitacionId": 5,
+      "fechaIngreso": "2025-07-17",
+      "fechaSalida": "2025-07-31",
+      "estado": "Pendiente",
+      "usuarioId": 1
+    },
+    {
+      "id": "1",
+      "habitacionId": 3,
+      "fechaIngreso": "2025-08-01",
+      "fechaSalida": "2025-08-22",
+      "estado": "Pendiente",
+      "usuarioId": 1752637721578
+    },
+    {
+      "id": "1",
+      "habitacionId": 1,
+      "fechaIngreso": "2025-07-30",
+      "fechaSalida": "2025-08-02",
+      "estado": "Pendiente",
+      "usuarioId": 1752642855947
+    }
+  ],
+  "servicios": [
+    {
+      "id": "1",
+      "nombre": "Desayuno Buffet",
+      "descripcion": "Incluye variedad de panes, frutas y bebidas.",
+      "precio": 25
+    },
+    {
+      "id": "2",
+      "nombre": "Spa",
+      "descripcion": "Masajes relajantes y tratamientos corporales.",
+      "precio": 80
+    },
+    {
+      "id": "3",
+      "nombre": "WiFi",
+      "descripcion": "Conexión inalámbrica de alta velocidad gratuita.",
+      "precio": 0
+    },
+    {
+      "id": "4",
+      "nombre": "Gimnasio",
+      "descripcion": "Equipado con máquinas modernas y pesas.",
+      "precio": 15
+    },
+    {
+      "id": "5",
+      "nombre": "Lavandería",
+      "descripcion": "Servicio de lavado y planchado.",
+      "precio": 20
+    },
+    {
+      "id": "6",
+      "nombre": "Piscina",
+      "descripcion": "Piscina al aire libre con zona de descanso.",
+      "precio": 10
+    },
+    {
+      "id": "7",
+      "nombre": "Room Service",
+      "descripcion": "Atención personalizada en la habitación.",
+      "precio": 30
+    },
+    {
+      "id": "8",
+      "nombre": "Parqueo",
+      "descripcion": "Estacionamiento gratuito para huéspedes.",
+      "precio": 0
+    },
+    {
+      "id": "9",
+      "nombre": "Traslados",
+      "descripcion": "Servicio de transporte al aeropuerto.",
+      "precio": 40
+    },
+    {
+      "id": "10",
+      "nombre": "Eventos",
+      "descripcion": "Salones para conferencias y reuniones.",
+      "precio": 150
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "nombre": "Carlos Ruiz",
+      "correo": "carlos@gmail.com",
+      "contrasena": "carlos123",
+      "rol": "cliente"
+    },
+    {
+      "id": "2",
+      "nombre": "Lucía Vargas",
+      "correo": "lucia@gmail.com",
+      "contrasena": "lucia123",
+      "rol": "cliente"
+    },
+    {
+      "id": "3",
+      "nombre": "Isabel Lopez",
+      "correo": "Lopez@gmail.com",
+      "contrasena": "lopez123",
+      "rol": "administrador"
+    },
+    {
+      "id": "1752637721578",
+      "nombre": "Naye",
+      "correo": "nayely123@gmail.com",
+      "contrasena": "nayely123",
+      "rol": "cliente"
+    },
+    {
+      "id": "1752642855947",
+      "nombre": "pedro",
+      "correo": "pedrito1278@gmail.com",
+      "contrasena": "pedrito123",
+      "rol": "cliente"
+    }
+  ],
+  "contactos": [
+    {
+      "id": "1",
+      "nombre": "Juan",
+      "correo": "juan@gmail.com",
+      "mensaje": "¿Tienen habitaciones dobles disponibles?"
+    },
+    {
+      "id": "2",
+      "nombre": "Marta",
+      "correo": "marta@gmail.com",
+      "mensaje": "¿El desayuno está incluido?"
+    },
+    {
+      "id": "3",
+      "nombre": "Luis",
+      "correo": "luis@gmail.com",
+      "mensaje": "¿Tienen estacionamiento gratuito?"
+    }
+  ],
+  "opiniones": [
+    {
+      "id": "1",
+      "usuarioId": 1,
+      "comentario": "Muy buen servicio y personal amable.",
+      "calificacion": 5
+    },
+    {
+      "id": "2",
+      "usuarioId": 2,
+      "comentario": "La habitación estaba limpia y cómoda.",
+      "calificacion": 4
+    },
+    {
+      "id": "3",
+      "usuarioId": 3,
+      "comentario": "El desayuno podría mejorar.",
+      "calificacion": 3
+    },
+    {
+      "id": "4",
+      "usuarioId": 4,
+      "comentario": "Excelente ubicación.",
+      "calificacion": 4
+    },
+    {
+      "id": "5",
+      "usuarioId": 5,
+      "comentario": "La piscina estaba cerrada.",
+      "calificacion": 2
+    },
+    {
+      "id": "6",
+      "usuarioId": 6,
+      "comentario": "Todo fue perfecto, volveré pronto.",
+      "calificacion": 5
+    },
+    {
+      "id": "7",
+      "usuarioId": 7,
+      "comentario": "Falta variedad en el desayuno.",
+      "calificacion": 3
+    },
+    {
+      "id": "8",
+      "usuarioId": 8,
+      "comentario": "Muy buena atención en recepción.",
+      "calificacion": 4
+    },
+    {
+      "id": "9",
+      "usuarioId": 9,
+      "comentario": "La cama era muy cómoda.",
+      "calificacion": 5
+    },
+    {
+      "id": "10",
+      "usuarioId": 10,
+      "comentario": "El Wi-Fi no funcionaba bien.",
+      "calificacion": 2
+    }
+  ]
+}

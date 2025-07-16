@@ -1,0 +1,68 @@
+.footer-elegante {
+  background-color: #1b1b1b;
+  color: #f5f5f5;
+  padding: 1rem 1rem;
+  font-family: 'moela', sans-serif;
+}
+
+.footer-titulo {
+  font-family: 'moela', serif;
+  font-size: 2rem;
+  color: #d4af37; /* Dorado suave */
+  margin-bottom: 0.2rem;
+}
+
+
+.footer-iconos {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.icono-footer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #333;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid #444;
+}
+
+.icono-footer:hover {
+  background-color: #d4af37;
+  color: #1b1b1b;
+  transform: scale(1.1);
+}
+
+/* Iconos individuales (puedes personalizar si gustas) */
+.icono-footer.facebook:hover {
+  background-color: #0e48c5;
+  color: #fff;
+}
+
+.icono-footer.instagram:hover {
+  background-color: #cd092d;
+  color: #fff;
+}
+
+.icono-footer.twitter:hover {
+  background-color: #00a2ff;
+  color: #fff;
+}
+
+.footer-linea {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 0.5rem auto;
+  max-width: 300px;
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  color: #aaa;
+}

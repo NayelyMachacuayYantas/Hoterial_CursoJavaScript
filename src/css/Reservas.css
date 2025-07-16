@@ -1,0 +1,31 @@
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #5a4634;
+}
+
+.texto-dorado {
+  color: #b8952f;
+}
+
+.borde-dorado {
+  border: 1px solid #f3e2a9;
+}
+
+.sombra-suave {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+.reservas-scrollable {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.reservas-scrollable::-webkit-scrollbar {
+  width: 5px;
+}
+
+.reservas-scrollable::-webkit-scrollbar-thumb {
+  background-color: #d6cfc0;
+  border-radius: 4px;
+}

@@ -1,0 +1,33 @@
+.resumen-fondo {
+  background-color: #fffaf4;
+  min-height: 100vh;
+}
+
+.resumen-card {
+  background-color: #ffffff;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: #5a4634;
+}
+
+.subtitulo {
+  font-family: 'Raleway', sans-serif;
+  color: #b68d4c;
+  font-weight: 600;
+}
+
+.total-final {
+  font-size: 1.25rem;
+  color: #5a4634;
+}
+
+.list-group-item {
+  background-color: #fffefc;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.95rem;
+}

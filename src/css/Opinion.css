@@ -1,0 +1,40 @@
+.opinion-card {
+  border-left: 5px solid #b8952f;
+  background-color: #fffdf8;
+  transition: transform 0.2s ease;
+}
+
+.opinion-card:hover {
+  transform: scale(1.01);
+}
+
+.texto-dorado {
+  color: #b8952f;
+}
+
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #5a4634;
+}
+
+.subtitulo-seccion {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  color: #5a4634;
+}
+
+.formulario-opinion {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.btn-enviar {
+    background-color: #000000;
+    border: 0.5px solid rgb(151, 151, 151);
+    color: #d7ab25;;
+}
+.btn-enviar:hover {
+    background-color: #d7ab25;
+    border: 0.5px solid rgb(255, 255, 255);
+    color: white;
+}

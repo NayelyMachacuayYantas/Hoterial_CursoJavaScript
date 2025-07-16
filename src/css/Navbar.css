@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Raleway:wght@400;600&display=swap');
+
+/* Navbar fondo negro elegante */
+.navbar-custom {
+  background-color: #000000 !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  padding: 0.8rem 1.5rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* Marca del hotel */
+.navbar-custom .navbar-brand {
+  color: #e8c065 !important; /* Dorado elegante */
+  font-weight: 600;
+  font-family: 'moela', serif;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+/* Hover en la marca */
+.navbar-custom .navbar-brand:hover {
+  color: #f1d181 !important;
+}
+
+/* Enlaces del navbar */
+.navbar-custom .nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Hover dorado tipo oro */
+.navbar-custom .nav-link:hover {
+  color: #e8c065 !important;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+/* Nombre del usuario */
+.navbar-custom .text-white {
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.95rem;
+}
+
+/* Botón cerrar sesión / ingresar */
+.navbar-custom .btn-outline-danger {
+  border-color: #e8c065;
+  color: #e8c065;
+  background-color: transparent;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.navbar-custom .btn-outline-danger:hover {
+  background-color: #e8c065;
+  color: #000000;
+  border-color: #e8c065;
+}

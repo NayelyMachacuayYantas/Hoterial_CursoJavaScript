@@ -1,0 +1,23 @@
+.titulo-seccion {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px !important;
+  
+  font-weight: bold;
+  color: #5a4634;
+}
+
+.subtitulo-seccion {
+  font-weight: 600;
+}
+
+.texto-dorado {
+  color: #b8952f;
+}
+
+.sombra-suave {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.borde-dorado {
+  border: 1px solid #f3e2a9;
+}

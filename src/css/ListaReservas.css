@@ -1,0 +1,62 @@
+.bonita-contenedor {
+  width: 100%;
+  max-height: 100%;
+  background: #fdfdfd;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Centra horizontalmente todo el contenido */
+}
+
+.bonita-titulo {
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+}
+
+.bonita-card {
+  width: 100%; /* 👈 ancho del 80% */
+  max-width: none; /* 👈 opcional para limitar en pantallas grandes */
+  border-radius: 10px;
+  height: 120px;
+  background-color: #fff;
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  align-items: stretch; /* para que la imagen y contenido estén al mismo alto */
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.bonita-card:hover {
+  transform: scale(1.01);
+}
+
+.bonita-img {
+  width: 130px;
+  object-fit: cover;
+  height: auto;
+  max-height: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.bonita-dorado {
+  color: #d4af37;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 576px) {
+  .bonita-card {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .bonita-img {
+    width: 100%;
+    height: 180px;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 10px 10px 0 0;
+  }
+}
