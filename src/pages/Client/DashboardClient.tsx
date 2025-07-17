@@ -15,8 +15,7 @@ const DashboardClient = () => {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   // Ahora almacenaremos todas las reservas del usuario
   const [reservasDelUsuario, setReservasDelUsuario] = useState<ReservaConHabitacion[]>([]);
-  // No necesitamos un estado para una sola habitación si mostramos muchas
-  // Los servicios se cargan por usuario, asumo que son servicios generales para el usuario, no por reserva específica
+  
   const [serviciosAdicionales, setServiciosAdicionales] = useState<Servicio[]>([]);
   // El total general ahora podría ser el total de todas las reservas activas + servicios
   const [totalGeneral, setTotalGeneral] = useState<number>(0);

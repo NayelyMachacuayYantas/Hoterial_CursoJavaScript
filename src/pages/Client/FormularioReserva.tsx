@@ -126,7 +126,6 @@ const FormularioReserva = ({
       await axios.post("http://localhost:3001/reservas", nueva);
       setReservas((prev) => [...prev, nueva]);
 
-      // 🚨 ¡COMENTA O ELIMINA ESTA LÍNEA SI NO QUIERES QUE CIERRE LA VENTANA!
       // if (modoFlotante) cerrarVentana("reservas");
     }
 

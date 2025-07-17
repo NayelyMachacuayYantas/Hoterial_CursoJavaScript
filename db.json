@@ -179,6 +179,14 @@
       "fechaSalida": "2025-08-02",
       "estado": "Cancelada",
       "usuarioId": 1752642855947
+    },
+    {
+      "id": "c091",
+      "habitacionId": 5,
+      "fechaIngreso": "2025-07-22",
+      "fechaSalida": "2025-07-30",
+      "estado": "Pendiente",
+      "usuarioId": "1752642855947"
     }
   ],
   "servicios": [

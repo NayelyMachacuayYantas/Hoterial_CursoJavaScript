@@ -3,9 +3,7 @@ import axios from "axios";
 import { Reserva } from "../../types/Reserva";
 import { Habitacion } from "../../types/Habitacion";
 import { Usuario } from "../../types/Usuario";
-// import "../../css/ListaReservas.css"; // ¡Hemos quitado esta línea!
-import "bootstrap-icons/font/bootstrap-icons.css"; // Asegúrate de tener los íconos de Bootstrap
-
+import "bootstrap-icons/font/bootstrap-icons.css"; 
 const ListaReserva = () => {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [reservas, setReservas] = useState<Reserva[]>([]);
@@ -98,10 +96,7 @@ const ListaReserva = () => {
             <div
               key={res.id}
               className="list-group-item list-group-item-action d-flex flex-column flex-md-row mb-3 shadow-sm rounded-3 overflow-hidden"
-              // Reemplazamos 'bonita-card' con clases de Bootstrap para la tarjeta.
-              // 'shadow-sm' para una sombra pequeña.
-              // 'rounded-3' para esquinas redondeadas.
-              // 'overflow-hidden' para contener bien la imagen.
+              
             >
               {hab?.imagen && (
                 <img

@@ -33,7 +33,7 @@ const ServiciosClient = ({ modoFlotante = false }: Props) => {
       // Cargar los servicios agregados al inicio
       cargarServiciosAgregados(userData.id);
 
-      // 🚨 Nuevo: Listener para el evento 'dashboardUpdate'
+      //  Listener para el evento 'dashboardUpdate'
       // Esto permite que el componente de servicios reaccione si el dashboard o
       // las reservas (u otros componentes) indican que algo ha cambiado y
       // necesita una recarga de datos.
@@ -61,7 +61,7 @@ const ServiciosClient = ({ modoFlotante = false }: Props) => {
       const nuevos = [...serviciosAgregados, servicio];
       setServiciosAgregados(nuevos);
       localStorage.setItem(`servicios-${usuario.id}`, JSON.stringify(nuevos));
-      // 🚨 Disparar evento para actualizar el dashboard
+      //  Disparar evento para actualizar el dashboard
       window.dispatchEvent(new CustomEvent("dashboardUpdate"));
       console.log(`Servicio agregado y evento 'dashboardUpdate' disparado.`);
     }
@@ -75,7 +75,7 @@ const ServiciosClient = ({ modoFlotante = false }: Props) => {
     const nuevos = serviciosAgregados.filter((s) => s.id !== id);
     setServiciosAgregados(nuevos);
     localStorage.setItem(`servicios-${usuario.id}`, JSON.stringify(nuevos));
-    // 🚨 Disparar evento para actualizar el dashboard
+    //  Disparar evento para actualizar el dashboard
     window.dispatchEvent(new CustomEvent("dashboardUpdate"));
     console.log(`Servicio eliminado y evento 'dashboardUpdate' disparado.`);
   };

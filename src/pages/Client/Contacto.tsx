@@ -40,12 +40,12 @@ const Contacto = ({ modoFlotante = false }: Props) => {
   e.preventDefault(); // evita que recargue la página al enviar el form
 
   try {
-    // 👉 Aquí envías los datos del formulario al servidor
+    //  Aquí envías los datos del formulario al servidor
     await axios.post("http://localhost:3001/contactos", formData);
 
     alert("Mensaje enviado correctamente");
 
-    // 👉 Limpias el formulario después del envío
+    //  Limpias el formulario después del envío
     setFormData({
       id: Date.now(),
       nombre: '',

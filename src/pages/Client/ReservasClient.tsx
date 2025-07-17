@@ -182,10 +182,7 @@ const ReservasClient = ({
         await axios.post("http://localhost:3001/reservas", nueva);
         alert("Reserva creada correctamente.");
 
-        // 🚨 ¡COMENTA O ELIMINA ESTA LÍNEA SI NO QUIERES QUE CIERRE LA VENTANA!
-        // if (modoFlotante) {
-        //   cerrarVentana("reservas");
-        // }
+        
       }
 
       // Después de cada operación (crear/actualizar), recargar los datos

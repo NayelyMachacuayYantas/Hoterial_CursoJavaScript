@@ -14,10 +14,10 @@ const HabitacionesClient = () => {
     try {
       const res = await axios.get<Habitacion[]>("http://localhost:3001/habitaciones");
 
-      // Modificación clave aquí: Afirmamos que el resultado del map es Habitacion[]
+      
       const habitacionesDisponiblesVisualmente: Habitacion[] = res.data.map(hab => ({
         ...hab,
-        estado: "Disponible" as Habitacion['estado'] // Aseguramos que 'estado' sea del tipo correcto
+        estado: "Disponible" as Habitacion['estado'] 
       }));
       setHabitaciones(habitacionesDisponiblesVisualmente);
       console.log("Habitaciones cargadas y mostradas como Disponibles en la UI.");
