@@ -111,6 +111,7 @@ const Opiniones = () => {
                   className="form-control"
                   value={calificacion}
                   onChange={(e) => setCalificacion(Number(e.target.value))}
+                  title="Calificaciòn"
                   required
                 />
               </div>
