@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Reserva } from "../../types/Reserva";
 import { Habitacion } from "../../types/Habitacion";
 import { Usuario } from "../../types/Usuario";
-import "bootstrap-icons/font/bootstrap-icons.css"; 
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { reservaService } from "../../services/reservaService";
+
 const ListaReserva = () => {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [reservas, setReservas] = useState<Reserva[]>([]);
@@ -11,12 +12,12 @@ const ListaReserva = () => {
 
   const cargarDatos = async (userId: string | number) => {
     try {
-      const [habitacionesRes, reservasRes] = await Promise.all([
-        axios.get("http://localhost:3001/habitaciones"),
-        axios.get(`http://localhost:3001/reservas?usuarioId=${userId}`),
+      const [habitacionesData, reservasData] = await Promise.all([
+        reservaService.getHabitaciones(),
+        reservaService.getReservasByUserId(userId),
       ]);
-      setHabitaciones(habitacionesRes.data);
-      setReservas(reservasRes.data);
+      setHabitaciones(habitacionesData);
+      setReservas(reservasData);
     } catch (error) {
       console.error("Error al cargar datos:", error);
     }
@@ -30,7 +31,9 @@ const ListaReserva = () => {
       cargarDatos(userData.id);
 
       const handleDashboardUpdate = () => {
-        console.log("Evento 'dashboardUpdate' recibido en ListaReserva. Recargando datos...");
+        console.log(
+          "Evento 'dashboardUpdate' recibido en ListaReserva. Recargando datos..."
+        );
         cargarDatos(userData.id);
       };
       window.addEventListener("dashboardUpdate", handleDashboardUpdate);
@@ -42,7 +45,7 @@ const ListaReserva = () => {
   }, []);
 
   const cancelarReserva = async (id: string | number) => {
-    if (!confirm("¿Estás seguro de que quieres cancelar esta reserva?")) return;
+    if (!confirm("¿Estás seguro de pagar esta reserva?")) return;
 
     const reserva = reservas.find((r) => r.id === id);
     if (!reserva) {
@@ -51,11 +54,10 @@ const ListaReserva = () => {
     }
 
     try {
-      const actualizada: Reserva = { ...reserva, estado: "Cancelada" };
-      await axios.put(`http://localhost:3001/reservas/${id}`, actualizada);
-      alert("Reserva cancelada correctamente.");
+      await reservaService.cancelarReserva(id, reserva);
+      alert("Reserva pagada correctamente.");
       setReservas((prev) =>
-        prev.map((r) => (r.id === id ? actualizada : r))
+        prev.map((r) => (r.id === id ? { ...r, estado: "Cancelada" } : r))
       );
       window.dispatchEvent(new CustomEvent("dashboardUpdate"));
     } catch (error) {
@@ -65,9 +67,14 @@ const ListaReserva = () => {
   };
 
   const eliminarReserva = async (id: string | number) => {
-    if (!confirm("¿Estás seguro de que quieres eliminar esta reserva? Esta acción es irreversible.")) return;
+    if (
+      !confirm(
+        "¿Estás seguro de que quieres eliminar esta reserva? Esta acción es irreversible."
+      )
+    )
+      return;
     try {
-      await axios.delete(`http://localhost:3001/reservas/${id}`);
+      await reservaService.eliminarReserva(id);
       alert("Reserva eliminada correctamente.");
       setReservas((prev) => prev.filter((r) => r.id !== id));
       window.dispatchEvent(new CustomEvent("dashboardUpdate"));
@@ -78,45 +85,50 @@ const ListaReserva = () => {
   };
 
   return (
-    <div className="container py-3"> {/* Usamos 'container' de Bootstrap para centrar y añadir padding */}
-      <h5 className="text-center mb-4 text-primary"> {/* 'text-primary' para darle un color de Bootstrap */}
+    <div className="container py-3">
+      <h5 className="text-center mb-4 text-primary">
         <i className="bi bi-calendar-week me-2"></i>Mis Reservas
       </h5>
 
-      <div className="list-group"> {/* Un grupo de listas de Bootstrap para las reservas */}
+      <div className="list-group">
         {reservas.length === 0 && (
           <p className="text-muted text-center py-3">No tienes reservas aún.</p>
         )}
 
         {reservas.map((res) => {
-          const hab = habitaciones.find((h) => h.id?.toString() === res.habitacionId?.toString());
+          const hab = habitaciones.find(
+            (h) => h.id?.toString() === res.habitacionId?.toString()
+          );
           const usuarioAsociado = usuario;
 
           return (
             <div
               key={res.id}
               className="list-group-item list-group-item-action d-flex flex-column flex-md-row mb-3 shadow-sm rounded-3 overflow-hidden"
-              
             >
               {hab?.imagen && (
                 <img
                   src={hab.imagen}
                   alt={`Habitación ${hab.numero || res.habitacionId}`}
-                  className="img-fluid rounded-start me-md-3 mb-2 mb-md-0" // 'me-md-3' para margen a la derecha en md+
-                  style={{ maxWidth: '150px', height: 'auto', objectFit: 'cover' }} // Estilo en línea para controlar el tamaño de la imagen
+                  className="img-fluid rounded-start me-md-3 mb-2 mb-md-0"
+                  style={{
+                    maxWidth: "150px",
+                    height: "auto",
+                    objectFit: "cover",
+                  }}
                 />
               )}
-              
+
               <div className="p-3 flex-grow-1">
                 <div className="d-flex justify-content-between align-items-start mb-2">
-                  <h6 className="mb-0 fw-bold text-dark"> {/* 'text-dark' si quieres un color oscuro para los títulos */}
-                    Reserva #{res.id}
-                  </h6>
+                  <h6 className="mb-0 fw-bold text-dark">Reserva #{res.id}</h6>
                   <span
                     className={`badge text-uppercase py-2 px-3 rounded-pill ${
-                      res.estado === "Confirmada" ? "bg-success" :
-                      res.estado === "Cancelada"  ? "bg-danger" :
-                      "bg-warning text-dark"
+                      res.estado === "Confirmada"
+                        ? "bg-success"
+                        : res.estado === "Cancelada"
+                        ? "bg-danger"
+                        : "bg-warning text-dark"
                     }`}
                   >
                     {res.estado}
@@ -125,7 +137,6 @@ const ListaReserva = () => {
 
                 {hab ? (
                   <>
-                    {/* Usamos 'text-secondary' o 'text-muted' para un color de texto más suave si lo deseas, o simplemente no lo uses para el color por defecto */}
                     <p className="mb-1">
                       <strong>Habitación:</strong> {hab.numero} ({hab.tipo})
                     </p>
@@ -133,11 +144,14 @@ const ListaReserva = () => {
                       <strong>Capacidad:</strong> {hab.capacidad} personas
                     </p>
                     <p className="mb-1">
-                      <strong>Precio por noche:</strong> S/.{hab.precio?.toFixed(2)}
+                      <strong>Precio por noche:</strong> S/.
+                      {hab.precio?.toFixed(2)}
                     </p>
                   </>
                 ) : (
-                  <p className="mb-1 text-muted">Habitación no disponible o eliminada.</p>
+                  <p className="mb-1 text-muted">
+                    Habitación no disponible o eliminada.
+                  </p>
                 )}
 
                 <p className="mb-1">
@@ -149,7 +163,8 @@ const ListaReserva = () => {
 
                 {usuarioAsociado && (
                   <p className="small text-muted mb-2">
-                    Reservado por: {usuarioAsociado.nombre} ({usuarioAsociado.correo})
+                    Reservado por: {usuarioAsociado.nombre} (
+                    {usuarioAsociado.correo})
                   </p>
                 )}
 

@@ -3,10 +3,10 @@ import { Reserva } from "../../types/Reserva";
 import { Habitacion } from "../../types/Habitacion";
 import { Usuario } from "../../types/Usuario";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useVentanas } from "../../components/VentanaContext";
 import "../../css/Reservas.css";
+import { reservasClientService } from "../../services/reservasClientService";
 
 type Props = {
   modoFlotante?: boolean;
@@ -37,24 +37,20 @@ const ReservasClient = ({
   // Función para cargar habitaciones disponibles (optimizada con useCallback)
   const cargarHabitaciones = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:3001/habitaciones");
-      setHabitaciones(
-        res.data.filter((h: Habitacion) => h.estado === "Disponible")
-      );
+      const data = await reservasClientService.getAvailableHabitaciones();
+      setHabitaciones(data);
     } catch (error) {
       console.error("Error al cargar habitaciones:", error);
-      // Opcional: alert("Hubo un error al cargar las habitaciones.");
     }
   }, []);
 
   // Función para cargar las reservas del usuario actual (optimizada con useCallback)
   const cargarReservas = useCallback(async (userId: number) => {
     try {
-      const res = await axios.get(`http://localhost:3001/reservas?usuarioId=${userId}`);
-      setReservas(res.data);
+      const data = await reservasClientService.getReservasByUserId(userId);
+      setReservas(data);
     } catch (error) {
       console.error("Error al cargar reservas:", error);
-      // Opcional: alert("Hubo un error al cargar las reservas.");
     }
   }, []);
 
@@ -87,8 +83,11 @@ const ReservasClient = ({
 
       // Nuevo: Listener para el evento 'dashboardUpdate'
       const handleDashboardUpdate = () => {
-        console.log("Evento 'dashboardUpdate' recibido en ReservasClient. Recargando datos...");
-        if (userData.id) { // Asegúrate de que el usuario esté cargado
+        console.log(
+          "Evento 'dashboardUpdate' recibido en ReservasClient. Recargando datos..."
+        );
+        if (userData.id) {
+          
           cargarHabitaciones(); // Posiblemente una habitación cambió de estado
           cargarReservas(userData.id);
         }
@@ -112,7 +111,11 @@ const ReservasClient = ({
 
   // Este efecto adicional se asegura de que cuando cambia la prop habitacionPreseleccionada, actualice el form
   useEffect(() => {
-    if (modoFlotante && habitacionPreseleccionada && form.habitacionId !== habitacionPreseleccionada) {
+    if (
+      modoFlotante &&
+      habitacionPreseleccionada &&
+      form.habitacionId !== habitacionPreseleccionada
+    ) {
       setForm((prev) => ({
         ...prev,
         habitacionId: habitacionPreseleccionada,
@@ -124,7 +127,7 @@ const ReservasClient = ({
     if (!confirm("¿Estás segura de eliminar esta reserva?")) return;
 
     try {
-      await axios.delete(`http://localhost:3001/reservas/${id}`);
+      await reservasClientService.deleteReserva(id); // Usar el servicio
       alert("Reserva eliminada correctamente.");
       // Actualiza el estado local y dispara el evento para el dashboard
       if (usuario) {
@@ -142,8 +145,8 @@ const ReservasClient = ({
     e.preventDefault();
     if (!usuario) return;
 
-    const fechaIn = new Date(form.fechaIngreso + 'T00:00:00');
-    const fechaOut = new Date(form.fechaSalida + 'T00:00:00');
+    const fechaIn = new Date(form.fechaIngreso + "T00:00:00");
+    const fechaOut = new Date(form.fechaSalida + "T00:00:00");
     const hoyDate = new Date();
     hoyDate.setHours(0, 0, 0, 0);
 
@@ -167,22 +170,25 @@ const ReservasClient = ({
 
     try {
       if (editandoId) {
-        const updated = {
+        const updated: Reserva = {
           ...form,
           usuarioId: usuario.id,
           id: editandoId,
         };
-        await axios.put(`http://localhost:3001/reservas/${editandoId}`, updated);
+        await reservasClientService.updateReserva(editandoId, updated); // Usar el servicio
         alert("Reserva actualizada correctamente.");
       } else {
-        const nueva = {
+        const nueva: Omit<Reserva, "id"> = {
+          // `Omit` porque el ID se genera en el backend
           ...form,
           usuarioId: usuario.id,
         };
-        await axios.post("http://localhost:3001/reservas", nueva);
+        await reservasClientService.createReserva(nueva); // Usar el servicio
         alert("Reserva creada correctamente.");
 
-        
+        if (modoFlotante) {
+          cerrarVentana("reservas"); // Si está en modo flotante y se creó, cierra la ventana
+        }
       }
 
       // Después de cada operación (crear/actualizar), recargar los datos
@@ -203,7 +209,9 @@ const ReservasClient = ({
       setEditandoId(null);
     } catch (error) {
       console.error("Error al procesar la reserva:", error);
-      alert("Hubo un error al guardar/actualizar la reserva. Revisa la consola.");
+      alert(
+        "Hubo un error al guardar/actualizar la reserva. Revisa la consola."
+      );
     }
   };
 
@@ -241,7 +249,7 @@ const ReservasClient = ({
     };
 
     try {
-      await axios.put(`http://localhost:3001/reservas/${id}`, actualizada);
+      await reservasClientService.updateReserva(id, actualizada); // Usar el servicio
       alert("Reserva cancelada correctamente.");
       // Actualiza el estado local y dispara el evento para el dashboard
       if (usuario) {

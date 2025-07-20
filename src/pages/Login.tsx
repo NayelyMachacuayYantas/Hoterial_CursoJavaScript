@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Usuario } from "../types/Usuario";
 import { useAuth } from "../context/AuthContext";
-import "../css/Login.css"; // ⬅️ Estilos
+import "../css/Login.css"; // ⬅ Estilos
+import { loginService } from "../services/loginService"; // <--- ¡Importamos loginService!
 
 //INSTALAR EL SERVIDOR : npm install -g json-server
 //CORRER EL JSON
 //json-server --watch db.json --port 3001
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // 💡 USAMOS CONTEXTO
+  const { login } = useAuth(); // USAMOS CONTEXTO
 
   const [form, setForm] = useState({ nombre: "", correo: "", password: "" });
   const [esNuevo, setEsNuevo] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const usuario = localStorage.getItem("usuario");
-    if (usuario) navigate("/dashboardcliente");
+    const usuarioLocalStorage = localStorage.getItem("usuario");
+    if (usuarioLocalStorage) {
+      try {
+        const parsedUser: Usuario = JSON.parse(usuarioLocalStorage);
+        navigate("/dashboardcliente");
+      } catch (e) {
+        console.error("Error parsing user from localStorage:", e);
+        localStorage.removeItem("usuario");
+      }
+    }
   }, [navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,10 +36,11 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const res = await axios.get<Usuario[]>("http://localhost:3001/usuarios");
-      const usuarios = res.data;
+    setError("");
 
+    try {
+      const usuarios = await loginService.getUsers(); // <--- Usamos loginService
+      
       if (esNuevo) {
         const existe = usuarios.find(
           (u) => u.nombre === form.nombre || u.correo === form.correo
@@ -41,35 +50,33 @@ const Login = () => {
           return;
         }
 
-        const nuevoUsuario: Usuario = {
-          id: Date.now(),
+        const nuevoUsuarioParaRegistro: Omit<Usuario, "id"> = {
           nombre: form.nombre,
           correo: form.correo,
           contrasena: form.password,
           rol: "cliente",
         };
 
-        await axios.post("http://localhost:3001/usuarios", nuevoUsuario);
-        login(nuevoUsuario); // 💡 en vez de localStorage directamente
+        const usuarioRegistrado = await loginService.registerUser(nuevoUsuarioParaRegistro); // <--- Usamos loginService
+        login(usuarioRegistrado);
         navigate("/dashboardcliente");
       } else {
         const encontrado = usuarios.find(
           (u) => u.correo === form.correo && u.contrasena === form.password
         );
         if (encontrado) {
-          login(encontrado); // 💡 aquí también
+          login(encontrado);
           navigate("/dashboardcliente");
         } else {
           setError("Usuario o contraseña incorrectos.");
         }
       }
     } catch (err) {
-      setError("Ocurrió un problema al conectar con el servidor.");
-      console.error(err);
+      setError("Ocurrió un problema al conectar con el servidor o al procesar la solicitud.");
+      console.error("Error en handleSubmit del Login:", err);
     }
   };
 
-  // JSX igual...
   return (
     <div className="vh-100 vw-100 d-flex justify-content-center align-items-center fondo-login">
       <div
@@ -132,7 +139,7 @@ const Login = () => {
           </div>
 
           <div className="d-grid mb-3">
-            <button className="btn btn-login rounded-pill">
+            <button type="submit" className="btn btn-login rounded-pill">
               {esNuevo ? "Crear Cuenta" : "Iniciar Sesión"}
             </button>
           </div>

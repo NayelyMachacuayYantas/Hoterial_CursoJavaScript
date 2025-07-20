@@ -1,28 +1,21 @@
 import { useEffect, useState, useCallback } from "react";
 import { Habitacion } from "../../types/Habitacion";
-import axios from "axios";
 import { useVentanas } from "../../components/VentanaContext";
 import "../../css/Habitacion.css";
 import FormularioReserva from "./FormularioReserva";
+import { habitacionService } from "../../services/habitacionService"; // Importamos el nuevo servicio
 
 const HabitacionesClient = () => {
   const [habitaciones, setHabitaciones] = useState<Habitacion[]>([]);
   const { abrirVentana } = useVentanas();
 
-  // Función para cargar las habitaciones
+  // Función para cargar las habitaciones - ¡Ahora usa el servicio!
   const cargarHabitaciones = useCallback(async () => {
     try {
-      const res = await axios.get<Habitacion[]>("http://localhost:3001/habitaciones");
-
-      
-      const habitacionesDisponiblesVisualmente: Habitacion[] = res.data.map(hab => ({
-        ...hab,
-        estado: "Disponible" as Habitacion['estado'] 
-      }));
-      setHabitaciones(habitacionesDisponiblesVisualmente);
-      console.log("Habitaciones cargadas y mostradas como Disponibles en la UI.");
+      const data = await habitacionService.getHabitaciones(); // Llama al servicio
+      setHabitaciones(data);
     } catch (err) {
-      console.error("Error al cargar habitaciones:", err);
+      console.error("Error al cargar habitaciones en el componente:", err);
     }
   }, []);
 
@@ -30,7 +23,9 @@ const HabitacionesClient = () => {
     cargarHabitaciones();
 
     const handleDashboardUpdate = () => {
-      console.log("Evento 'dashboardUpdate' recibido en HabitacionesClient. Recargando habitaciones para UI...");
+      console.log(
+        "Evento 'dashboardUpdate' recibido en HabitacionesClient. Recargando habitaciones para UI..."
+      );
       cargarHabitaciones();
     };
 
@@ -41,29 +36,25 @@ const HabitacionesClient = () => {
     };
   }, [cargarHabitaciones]);
 
-
   const reservar = (habitacionId: number) => {
     abrirVentana(
       `reserva-${habitacionId}`,
       "Reserva",
-      <FormularioReserva modoFlotante={true} habitacionPreseleccionada={habitacionId} />,
+      <FormularioReserva
+        modoFlotante={true}
+        habitacionPreseleccionada={habitacionId}
+      />,
       "simple"
     );
   };
-
-
   return (
     <div className="habitaciones-fondo py-5 px-3">
       <div className="container">
-        <h5 className="text-center titulo-sec mb-5">
-          Habitaciones
-        </h5>
+        <h5 className="text-center titulo-sec mb-5">Habitaciones</h5>
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {habitaciones.map((hab) => (
             <div key={hab.id} className="col">
-              <div
-                className={`card tarjeta-habitacion h-100`}
-              >
+              <div className={`card tarjeta-habitacion h-100`}>
                 {hab.imagen && (
                   <img
                     src={hab.imagen}

@@ -93,7 +93,7 @@
   ],
   "reservas": [
     {
-      "id": "3",
+      "id": "1",
       "usuarioId": 3,
       "habitacionId": 4,
       "fechaIngreso": "2025-07-10",
@@ -101,7 +101,7 @@
       "estado": "Cancelada"
     },
     {
-      "id": "4",
+      "id": "2",
       "usuarioId": 4,
       "habitacionId": 5,
       "fechaIngreso": "2025-07-11",
@@ -109,7 +109,7 @@
       "estado": "Confirmada"
     },
     {
-      "id": "5",
+      "id": "3",
       "usuarioId": 5,
       "habitacionId": 2,
       "fechaIngreso": "2025-07-12",
@@ -117,7 +117,7 @@
       "estado": "Confirmada"
     },
     {
-      "id": "6",
+      "id": "4",
       "usuarioId": 6,
       "habitacionId": 6,
       "fechaIngreso": "2025-07-20",
@@ -125,7 +125,7 @@
       "estado": "Pendiente"
     },
     {
-      "id": "7",
+      "id": "5",
       "usuarioId": 7,
       "habitacionId": 3,
       "fechaIngreso": "2025-07-21",
@@ -133,7 +133,7 @@
       "estado": "Confirmada"
     },
     {
-      "id": "8",
+      "id": "6",
       "usuarioId": 8,
       "habitacionId": 2,
       "fechaIngreso": "2025-07-25",
@@ -141,7 +141,7 @@
       "estado": "Confirmada"
     },
     {
-      "id": "9",
+      "id": "7",
       "usuarioId": 3,
       "habitacionId": 5,
       "fechaIngreso": "2025-07-28",
@@ -149,44 +149,44 @@
       "estado": "Pendiente"
     },
     {
-      "id": "10",
-      "usuarioId": 10,
-      "habitacionId": 6,
-      "fechaIngreso": "2025-08-01",
-      "fechaSalida": "2025-08-05",
-      "estado": "Confirmada"
-    },
-    {
-      "id": "2",
-      "habitacionId": 1,
-      "fechaIngreso": "2025-07-24",
-      "fechaSalida": "2025-07-25",
-      "estado": "Pendiente",
-      "usuarioId": 1
-    },
-    {
-      "id": "3",
+      "id": "8",
+      "usuarioId": 1,
       "habitacionId": 5,
       "fechaIngreso": "2025-07-17",
       "fechaSalida": "2025-07-31",
-      "estado": "Pendiente",
-      "usuarioId": 1
+      "estado": "Cancelada"
     },
     {
-      "id": "1",
-      "habitacionId": 1,
-      "fechaIngreso": "2025-07-30",
-      "fechaSalida": "2025-08-02",
+      "id": "9cdf",
+      "habitacionId": 5,
+      "fechaIngreso": "2025-07-18",
+      "fechaSalida": "2025-07-26",
       "estado": "Cancelada",
-      "usuarioId": 1752642855947
+      "usuarioId": "1"
     },
     {
-      "id": "c091",
+      "id": "a906",
       "habitacionId": 5,
       "fechaIngreso": "2025-07-22",
       "fechaSalida": "2025-07-30",
+      "estado": "Cancelada",
+      "usuarioId": "1752642855947"
+    },
+    {
+      "id": "e6da",
+      "habitacionId": 1,
+      "fechaIngreso": "2025-07-29",
+      "fechaSalida": "2025-08-10",
       "estado": "Pendiente",
       "usuarioId": "1752642855947"
+    },
+    {
+      "id": null,
+      "habitacionId": "1",
+      "fechaIngreso": "2025-07-31",
+      "fechaSalida": "2025-08-02",
+      "estado": "Pendiente",
+      "usuarioId": "98be"
     }
   ],
   "servicios": [
@@ -274,17 +274,31 @@
       "rol": "administrador"
     },
     {
-      "id": "1752637721578",
+      "id": "4",
       "nombre": "Naye",
       "correo": "nayely123@gmail.com",
       "contrasena": "nayely123",
       "rol": "cliente"
     },
     {
-      "id": "1752642855947",
-      "nombre": "pedro",
+      "id": "5",
+      "nombre": "Pedro",
       "correo": "pedrito1278@gmail.com",
       "contrasena": "pedrito123",
+      "rol": "cliente"
+    },
+    {
+      "id": "6",
+      "nombre": "Miguel",
+      "correo": "Miguel123@gmail.com",
+      "contrasena": "Miguel123",
+      "rol": "cliente"
+    },
+    {
+      "id": "98be",
+      "nombre": "Maria Perez",
+      "correo": "maria@gmail.com",
+      "contrasena": "maria123",
       "rol": "cliente"
     }
   ],
@@ -306,12 +320,18 @@
       "nombre": "Luis",
       "correo": "luis@gmail.com",
       "mensaje": "¿Tienen estacionamiento gratuito?"
+    },
+    {
+      "id": "4",
+      "nombre": "Carlos Ruiz",
+      "correo": "carlos@gmail.com",
+      "mensaje": "hola"
     }
   ],
   "opiniones": [
     {
       "id": "1",
-      "usuarioId": 1,
+      "usuarioId": "1",
       "comentario": "Muy buen servicio y personal amable.",
       "calificacion": 5
     },
@@ -368,6 +388,12 @@
       "usuarioId": 10,
       "comentario": "El Wi-Fi no funcionaba bien.",
       "calificacion": 2
+    },
+    {
+      "id": 1753053678827,
+      "usuarioId": "98be",
+      "comentario": "m",
+      "calificacion": 5
     }
   ]
 }

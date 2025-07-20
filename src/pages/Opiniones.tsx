@@ -3,6 +3,7 @@ import { Opinion } from "../types/Opinion";
 import { Usuario } from "../types/Usuario";
 import { useAuth } from "../context/AuthContext";
 import "../css/Opinion.css"; // ⬅️ Estilos
+import axios from "axios";
 
 const Opiniones = () => {
   const [db, setDb] = useState<any>(null);
@@ -12,43 +13,35 @@ const Opiniones = () => {
   const { usuario } = useAuth();
 
   useEffect(() => {
-    const storedDB = localStorage.getItem("db");
-    const userData = localStorage.getItem("usuario");
+  axios.get("http://localhost:3001/opiniones")
+    .then((res) => {
+      setOpiniones(res.data);
+    })
+    .catch((error) => {
+      console.error("Error al cargar opiniones:", error);
+    });
+}, []);
 
-    if (storedDB) {
-      const parsed = JSON.parse(storedDB);
-      setDb(parsed);
-      setOpiniones(parsed.opiniones || []);
-    } else {
-      fetch("/db.json")
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem("db", JSON.stringify(data));
-          setDb(data);
-          setOpiniones(data.opiniones || []);
-        });
-    }
-  }, []);
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!usuario) return;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!usuario || !db) return;
+  const nuevaOpinion: Opinion = {
+    id: Date.now(),
+    usuarioId: usuario.id,
+    comentario,
+    calificacion,
+  };
 
-    const nuevaOpinion: Opinion = {
-      id: Date.now(),
-      usuarioId: usuario.id,
-      comentario,
-      calificacion,
-    };
-
-    const nuevasOpiniones = [...opiniones, nuevaOpinion];
-    const nuevoDB = { ...db, opiniones: nuevasOpiniones };
-
-    localStorage.setItem("db", JSON.stringify(nuevoDB));
-    setOpiniones(nuevasOpiniones);
+  try {
+    await axios.post("http://localhost:3001/opiniones", nuevaOpinion);
+    setOpiniones((prev) => [...prev, nuevaOpinion]);
     setComentario("");
     setCalificacion(5);
-  };
+  } catch (error) {
+    console.error("Error al enviar opinión:", error);
+  }
+};
 
   return (
     <div className="min-vh-100 bg-light p-4">

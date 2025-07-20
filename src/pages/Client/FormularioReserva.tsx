@@ -3,10 +3,10 @@ import { Reserva } from "../../types/Reserva";
 import { Habitacion } from "../../types/Habitacion";
 import { Usuario } from "../../types/Usuario";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useVentanas } from "../../components/VentanaContext";
 import "../../css/Reservas.css";
+import { reservaFormService } from "../../services/reservaFormService";
 
 type Props = {
   modoFlotante?: boolean;
@@ -55,16 +55,24 @@ const FormularioReserva = ({
         }));
       }
 
-      axios.get("http://localhost:3001/habitaciones").then((res) => {
-        setHabitaciones(
-          res.data.filter((h: Habitacion) => h.estado === "Disponible")
-        );
-      });
+      // Usar el servicio para obtener habitaciones disponibles
+      reservaFormService
+        .getAvailableHabitaciones()
+        .then((data) => {
+          setHabitaciones(data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener habitaciones:", error);
+        });
 
-      axios
-        .get("http://localhost:3001/reservas?usuarioId=" + userData.id)
-        .then((res) => {
-          setReservas(res.data);
+      // Usar el servicio para obtener reservas del usuario
+      reservaFormService
+        .getReservasByUserId(userData.id)
+        .then((data) => {
+          setReservas(data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener reservas del usuario:", error);
         });
     }
   }, [
@@ -104,38 +112,58 @@ const FormularioReserva = ({
 
     setErrorFecha("");
 
-    if (editandoId) {
-      const updated = {
-        ...form,
-        usuarioId: usuario.id,
-        id: editandoId,
-      };
-      await axios.put(`http://localhost:3001/reservas/${editandoId}`, updated);
-      setReservas((prev) =>
-        prev.map((r) => (r.id === editandoId ? updated : r))
-      );
-    } else {
-      const ultimoId =
-        reservas.length > 0 ? Math.max(...reservas.map((r) => r.id)) : 0;
+    try {
+      if (editandoId) {
+        const updated: Reserva = {
+          ...form,
+          usuarioId: usuario.id,
+          id: editandoId,
+        };
+        const result = await reservaFormService.updateReserva(
+          editandoId,
+          updated
+        );
+        setReservas((prev) =>
+          prev.map((r) => (r.id === editandoId ? result : r))
+        );
+        alert("Reserva actualizada correctamente.");
+      } else {
+        const ultimoId =
+          reservas.length > 0 ? Math.max(...reservas.map((r) => r.id)) : 0;
 
-      const nueva = {
-        ...form,
-        usuarioId: usuario.id,
-        id: ultimoId + 1,
-      };
-      await axios.post("http://localhost:3001/reservas", nueva);
-      setReservas((prev) => [...prev, nueva]);
+        const nueva: Reserva = {
+          ...form,
+          usuarioId: usuario.id,
+          id: ultimoId + 1, // Asignamos el ID aquí antes de enviarlo
+        };
+        const result = await reservaFormService.createReserva(nueva);
+        setReservas((prev) => [...prev, result]);
+        alert("Reserva creada correctamente.");
 
-      // if (modoFlotante) cerrarVentana("reservas");
+        if (modoFlotante) {
+          // Disparamos un evento global para que ListaReserva se actualice
+          window.dispatchEvent(new CustomEvent("dashboardUpdate"));
+          cerrarVentana("reservas");
+        }
+      }
+
+      // Reiniciar el formulario
+      setForm({
+        habitacionId: 0,
+        fechaIngreso: "",
+        fechaSalida: "",
+        estado: "Pendiente",
+      });
+      setEditandoId(null);
+      // Disparamos un evento global para que ListaReserva se actualice (si no estamos en modo flotante o si lo estamos y no se cerró la ventana)
+      if (!modoFlotante || (modoFlotante && !cerrarVentana)) {
+        // Simplificado para asegurar el dispatch si no se cierra
+        window.dispatchEvent(new CustomEvent("dashboardUpdate"));
+      }
+    } catch (error) {
+      console.error("Error al procesar la reserva:", error);
+      alert("Hubo un error al procesar la reserva.");
     }
-
-    setForm({
-      habitacionId: 0,
-      fechaIngreso: "",
-      fechaSalida: "",
-      estado: "Pendiente",
-    });
-    setEditandoId(null);
   };
 
   const handleChange = (
